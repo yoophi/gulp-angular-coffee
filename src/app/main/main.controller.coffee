@@ -28,6 +28,9 @@ class MainController extends BaseController
       return
     return
 
+  login: ->
+    console.log 'MainController.login()'
+
 
 angular.module 'hashtagramSandbox'
   .controller 'MainController', MainController
