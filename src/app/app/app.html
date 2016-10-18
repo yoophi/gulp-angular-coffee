@@ -1,5 +1,27 @@
-<div>
-  <acme-navbar creation-date="main.creationDate"></acme-navbar>
-</div>
+<nav class="navbar navbar-static-top navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="https://github.com/Swiip/generator-gulp-angular">
+        <span class="glyphicon glyphicon-home"></span> Gulp Angular
+      </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+      <ul class="nav navbar-nav">
+        <li class="active"><a ui-sref=".home">Home</a></li>
+        <li><a ui-sref=".about">About</a></li>
+        <li><a ui-sref=".contact">Contact</a></li>
+        <li><a ui-sref=".profile">Profile</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="navbar" class="navbar-collapse collapse navbar-right">
+    <ul class="nav navbar-nav">
+      <li ng-hide="isLoggedIn()"><a ng-click="showLogin()">Login</a></li>
+      <li ng-show="isLoggedIn()"><a ng-click="logout()">Logout</a></li>
+    </ul>
+  </div>
+</nav>
 
 <div ui-view></div>

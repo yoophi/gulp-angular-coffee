@@ -26,4 +26,10 @@ angular.module 'hashtagramSandbox'
         controller: 'ContactController'
         controllerAs: 'contact'
 
+      .state 'app.profile',
+        url: 'profile'
+        templateUrl: 'app/profile/profile.html'
+        controller: 'ProfileController'
+        controllerAs: 'profile'
+
     $urlRouterProvider.otherwise '/home'

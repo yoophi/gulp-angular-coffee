@@ -11,7 +11,9 @@ angular.module 'hashtagramSandbox'
     directive =
       restrict: 'E'
       templateUrl: 'app/components/navbar/navbar.html'
-      scope: creationDate: '='
+      scope:
+        creationDate: '='
+        login: '='
       controller: NavbarController
       controllerAs: 'vm'
       bindToController: true

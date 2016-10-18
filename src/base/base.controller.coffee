@@ -13,7 +13,7 @@ class Module
 
   @include: (obj) ->
     for key, value of obj when key not in moduleKeywords
-      # Assign properties to the prototype
+# Assign properties to the prototype
       @::[key] = value
 
     obj.included?.apply(@)

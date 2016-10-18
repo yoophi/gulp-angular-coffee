@@ -19,7 +19,19 @@ gulp.task('scripts', function() {
 });
 
 function buildScripts() {
-  return gulp.src(path.join(conf.paths.src, '/app/**/*.coffee'))
+  return (
+    gulp.src(path.join(conf.paths.src, '/base/**/*.coffee'))
+    .pipe($.sourcemaps.init())
+    .pipe($.coffeelint())
+    .pipe($.coffeelint.reporter())
+    .pipe($.coffee({bare: true})).on('error', conf.errorHandler('CoffeeScript'))
+    .pipe($.sourcemaps.write())
+    .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/base')))
+    .pipe($.size())
+
+    &&
+
+    gulp.src(path.join(conf.paths.src, '/app/**/*.coffee'))
     .pipe($.sourcemaps.init())
     .pipe($.coffeelint())
     .pipe($.coffeelint.reporter())
@@ -27,4 +39,5 @@ function buildScripts() {
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app')))
     .pipe($.size())
+    )
 };
