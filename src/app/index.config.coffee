@@ -9,3 +9,7 @@ angular.module 'hashtagramSandbox'
     toastrConfig.positionClass = 'toast-top-right'
     toastrConfig.preventDuplicates = true
     toastrConfig.progressBar = true
+
+  .config ['$httpProvider', ($httpProvider) ->
+    $httpProvider.interceptors.push 'ApiInterceptorService'
+  ]

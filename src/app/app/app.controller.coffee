@@ -1,32 +1,48 @@
 class AppController extends BaseController
-  @inject '$scope', '$log', '$uibModal', 'ApiService'
+  @inject '$scope', '$log', '$state', '$uibModal',
+    'ApiService', 'UserService', 'toastr'
 
   initialize: ->
+    @$scope.user = @UserService.getModel()
     @items = ['item1', 'item2', 'item3']
     @animationsEnabled = true
+    @$scope.loginData = {}
 
-  hello: ->
-    @$log.debug 'hello, world'
+    if @ApiService.isLoggedIn()
+      @$log.debug 'ApiService.isLoggedIn()'
+      @UserService.getProfile()
 
-  login: ->
+  isLoggedIn: ->
+    @ApiService.isLoggedIn()
+
+  logout: ->
+    @ApiService.logout()
+    @toastr.info 'Logout Success'
+
+    for svc in [@UserService]
+      svc.clear?()
+
+    @$state.go 'app.home'
+
+  showLogin: ->
     @$log.debug 'AppController.login()'
-    @ApiService.login 'hello', 'world'
-    modalInstance = @$uibModal.open
+
+    m = @$uibModal.open
       animation: @animationsEnabled
       ariaLabelledBy: 'modal-title',
       ariaDescribedBy: 'modal-body',
       templateUrl: '/app/login/modal-content.html',
       controller: 'LoginModalController',
       controllerAs: '$ctrl',
-#      size: size,
+      scope: @$scope,
       resolve:
         items: () =>
           return @items
 
-    modalInstance.result.then (result) ->
-      console.log 'result', result
+    m.result.then (result) =>
+      @$log.debug 'result', result
     , () ->
-      console.log 'modal dismissed at: ' + new Date()
+      @$log.debug 'modal dismissed at: ' + new Date()
 
 
 angular.module 'hashtagramSandbox'
